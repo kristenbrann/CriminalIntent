@@ -1,5 +1,7 @@
 package com.bignerdranch.android.criminalintent;
 
+import android.util.Log;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -58,6 +60,14 @@ public class Crime {
         json.put(JSON_PHOTOS, photos);
 
         return json;
+    }
+
+    public void addPhoto(Photo photo){
+        int i = 0;
+        while(mPhotos[i] != null && (i+1)<NUM_PHOTOS)
+            i++;
+        mPhotos[i] = photo;
+        Log.d("CRIME", "Photo saved, there are now "+i+" photos.");
     }
 
     @Override
