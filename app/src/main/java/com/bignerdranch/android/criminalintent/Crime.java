@@ -3,6 +3,7 @@ package com.bignerdranch.android.criminalintent;
 import java.util.Date;
 import java.util.UUID;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,17 +13,20 @@ public class Crime {
     private static final String JSON_TITLE = "title";
     private static final String JSON_DATE = "date";
     private static final String JSON_SOLVED = "solved";
-    private static final String JSON_PHOTO = "photo";
+    private static final String JSON_PHOTOS = "photos";
+
+    private static final int NUM_PHOTOS = 4;
     
     private UUID mId;
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
-    private Photo mPhoto;
+    private Photo[] mPhotos;
     
     public Crime() {
         mId = UUID.randomUUID();
         mDate = new Date();
+        mPhotos = new Photo[NUM_PHOTOS];
     }
 
     public Crime(JSONObject json) throws JSONException {
@@ -30,8 +34,12 @@ public class Crime {
         mTitle = json.getString(JSON_TITLE);
         mSolved = json.getBoolean(JSON_SOLVED);
         mDate = new Date(json.getLong(JSON_DATE));
-        if (json.has(JSON_PHOTO))
-            mPhoto = new Photo(json.getJSONObject(JSON_PHOTO));
+
+        mPhotos = new Photo[NUM_PHOTOS];
+        JSONArray photosArray = json.getJSONArray(JSON_PHOTOS);
+        for (int i=0; i<photosArray.length(); i++) {
+            mPhotos[i] = new Photo(photosArray.getJSONObject(i));
+        }
     }
 
     public JSONObject toJSON() throws JSONException {
@@ -40,8 +48,15 @@ public class Crime {
         json.put(JSON_TITLE, mTitle);
         json.put(JSON_SOLVED, mSolved);
         json.put(JSON_DATE, mDate.getTime());
-        if (mPhoto != null)
-            json.put(JSON_PHOTO, mPhoto.toJSON());
+
+        JSONArray photos  = new JSONArray();
+        for (int i=0; i<NUM_PHOTOS; i++){
+            if (mPhotos[i] != null){
+                photos.put(mPhotos[i].toJSON());
+            }
+        }
+        json.put(JSON_PHOTOS, photos);
+
         return json;
     }
 
@@ -79,11 +94,20 @@ public class Crime {
     }
 
 	public Photo getPhoto() {
-		return mPhoto;
+		return mPhotos[0];
 	}
 
 	public void setPhoto(Photo photo) {
-		mPhoto = photo;
+		mPhotos[0] = photo;
 	}
-    
+
+    public Photo[] getPhotos() {
+        return mPhotos;
+    }
+
+    public void setPhotos(Photo[] photos) {
+        mPhotos = mPhotos;
+    }
+
+
 }
