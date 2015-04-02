@@ -31,7 +31,7 @@ public class Crime {
 
     public Crime(JSONObject json) throws JSONException {
         mId = UUID.fromString(json.getString(JSON_ID));
-        mTitle = json.getString(JSON_TITLE);
+        mTitle = json.optString(JSON_TITLE, null);
         mSolved = json.getBoolean(JSON_SOLVED);
         mDate = new Date(json.getLong(JSON_DATE));
 
