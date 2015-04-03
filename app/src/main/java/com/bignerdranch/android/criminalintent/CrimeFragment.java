@@ -136,7 +136,7 @@ public class CrimeFragment extends Fragment {
         mPhotoView2 = (ImageView)v.findViewById(R.id.imageView2);
         mPhotoView3 = (ImageView)v.findViewById(R.id.imageView3);
         mPhotoView4 = (ImageView)v.findViewById(R.id.imageView4);
-/*
+
         mPhotoView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Photo p = mCrime.getPhoto();
@@ -196,7 +196,7 @@ public class CrimeFragment extends Fragment {
                         .show(fm, DIALOG_IMAGE);
             }
         });
-*/
+
         
         return v; 
     }
