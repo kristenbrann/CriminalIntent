@@ -153,6 +153,8 @@ public class CrimeFragment extends Fragment {
             }
         });
 
+
+
         mPhotoView2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Photo p = mCrime.getPhotos()[1];
@@ -197,6 +199,9 @@ public class CrimeFragment extends Fragment {
                         .show(fm, DIALOG_IMAGE);
             }
         });
+
+
+
         mDeleteButton = (Button)v.findViewById(R.id.crime_delete);
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -258,6 +263,15 @@ public class CrimeFragment extends Fragment {
     public void onStop() {
         super.onStop();
         PictureUtils.cleanImageView(mPhotoView);
+
+     /*
+        PictureUtils.cleanImageView(mPhotoView2);
+        PictureUtils.cleanImageView(mPhotoView3);
+        PictureUtils.cleanImageView(mPhotoView4);
+
+        */
+
+
     }
 
     

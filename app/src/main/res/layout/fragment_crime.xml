@@ -3,7 +3,8 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical"
-    android:weightSum="1">
+  android:weightSum="1"
+  >
   <LinearLayout 
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -60,6 +61,8 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     />
+
+
   <CheckBox android:id="@+id/crime_solved"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -72,7 +75,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/imagestoragelayout"
         android:layout_gravity="center_horizontal">
 
@@ -108,13 +111,13 @@
 
     </LinearLayout>
 
-        <Button android:id="@+id/crime_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:text="Delete All Images"
-            />
+    <Button android:id="@+id/crime_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Delete All Images"
+        />
 
 
 
