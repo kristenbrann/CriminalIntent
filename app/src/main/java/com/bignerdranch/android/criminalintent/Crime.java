@@ -24,6 +24,7 @@ public class Crime {
     private Date mDate;
     private boolean mSolved;
     private Photo[] mPhotos;
+    private int photoIndex = 0;
     
     public Crime() {
         mId = UUID.randomUUID();
@@ -62,12 +63,10 @@ public class Crime {
         return json;
     }
 
-    public void addPhoto(Photo photo){
-        int i = 0;
-        while(mPhotos[i] != null && (i+1)<NUM_PHOTOS)
-            i++;
-        mPhotos[i] = photo;
-        Log.d("CRIME", "Photo saved, there are now "+i+" photos.");
+    public void  addPhoto(Photo photo){
+        mPhotos[photoIndex%4] = photo;
+        photoIndex ++;
+        Log.d("CRIME", "Photo saved. Photo Index is now at "+photoIndex+".");
     }
 
     @Override
@@ -107,6 +106,7 @@ public class Crime {
 		return mPhotos[0];
 	}
 
+
 	public void setPhoto(Photo photo) {
 		mPhotos[0] = photo;
 	}
@@ -119,5 +119,7 @@ public class Crime {
         mPhotos = mPhotos;
     }
 
-
+    public int getPhotoIndex(){
+        return photoIndex;
+    }
 }

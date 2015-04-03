@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +41,9 @@ public class CrimeFragment extends Fragment {
     CheckBox mSolvedCheckBox;
     ImageButton mPhotoButton;
     ImageView mPhotoView;
+    ImageView mPhotoView2;
+    ImageView mPhotoView3;
+    ImageView mPhotoView4;
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -129,6 +133,10 @@ public class CrimeFragment extends Fragment {
         }
 
         mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
+        mPhotoView2 = (ImageView)v.findViewById(R.id.imageView2);
+        mPhotoView3 = (ImageView)v.findViewById(R.id.imageView3);
+        mPhotoView4 = (ImageView)v.findViewById(R.id.imageView4);
+/*
         mPhotoView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Photo p = mCrime.getPhoto();
@@ -143,29 +151,93 @@ public class CrimeFragment extends Fragment {
                     .show(fm, DIALOG_IMAGE);
             }
         });
-        
+
+        mPhotoView2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Photo p = mCrime.getPhotos()[1];
+                if (p == null)
+                    return;
+
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                String path = getActivity()
+                        .getFileStreamPath(p.getFilename()).getAbsolutePath();
+                ImageFragment.createInstance(path)
+                        .show(fm, DIALOG_IMAGE);
+            }
+        });
+
+        mPhotoView3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Photo p = mCrime.getPhotos()[2];
+                if (p == null)
+                    return;
+
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                String path = getActivity()
+                        .getFileStreamPath(p.getFilename()).getAbsolutePath();
+                ImageFragment.createInstance(path)
+                        .show(fm, DIALOG_IMAGE);
+            }
+        });
+
+        mPhotoView4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Photo p = mCrime.getPhotos()[3];
+                if (p == null)
+                    return;
+
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                String path = getActivity()
+                        .getFileStreamPath(p.getFilename()).getAbsolutePath();
+                ImageFragment.createInstance(path)
+                        .show(fm, DIALOG_IMAGE);
+            }
+        });
+*/
         
         return v; 
     }
     
-    private void showPhoto() {
+    private void showPhoto(int index) {
+        Log.d("CRIME","index is " + index);
         // (re)set the image button's image based on our photo
-        Photo p = mCrime.getPhoto();
+        Photo p = mCrime.getPhotos()[index];
         BitmapDrawable b = null;
         if (p != null) {
             String path = getActivity()
                 .getFileStreamPath(p.getFilename()).getAbsolutePath();
             b = PictureUtils.getScaledDrawable(getActivity(), path);
         }
-        mPhotoView.setImageDrawable(b);
+        if(index == 0) {
+            Log.d("CRIME", "index is 0");
+            mPhotoView.setImageDrawable(b);
+        } else if(index == 1){
+            Log.d("CRIME", "index is 1");
+            mPhotoView2.setImageDrawable(b);
+        } else if(index == 2){
+            Log.d("CRIME", "index is 2");
+            mPhotoView3.setImageDrawable(b);
+        } else if(index == 3){
+            Log.d("CRIME", "index is 3");
+            mPhotoView4.setImageDrawable(b);
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        showPhoto();
+        Log.d("CRIME", "calling onStart");
+        Photo[] photos = mCrime.getPhotos();
+        for(int i = 0; i < photos.length; i++){
+            if(photos[i] != null){
+                showPhoto(i);
+            }
+        }
     }
-    
+
     @Override
     public void onStop() {
         super.onStop();
@@ -187,7 +259,7 @@ public class CrimeFragment extends Fragment {
             if (filename != null) {
                 Photo p = new Photo(filename);
                 mCrime.addPhoto(p);
-                showPhoto();
+                showPhoto(mCrime.getPhotoIndex()%4);
             }
         }
     }
