@@ -44,6 +44,7 @@ public class CrimeFragment extends Fragment {
     ImageView mPhotoView2;
     ImageView mPhotoView3;
     ImageView mPhotoView4;
+    Button mDeleteButton;
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -196,9 +197,24 @@ public class CrimeFragment extends Fragment {
                         .show(fm, DIALOG_IMAGE);
             }
         });
+        mDeleteButton = (Button)v.findViewById(R.id.crime_delete);
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                deletePhotos();
+            }
+        });
 
-        
         return v; 
+    }
+
+    private void deletePhotos() {
+        mPhotoView.setImageDrawable(null);
+        mPhotoView2.setImageDrawable(null);
+        mPhotoView3.setImageDrawable(null);
+        mPhotoView4.setImageDrawable(null);
+        mCrime.removeImages();
+
+
     }
     
     private void showPhoto(int index) {

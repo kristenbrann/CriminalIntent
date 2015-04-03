@@ -16,7 +16,6 @@ public class Crime {
     private static final String JSON_DATE = "date";
     private static final String JSON_SOLVED = "solved";
     private static final String JSON_PHOTOS = "photos";
-
     private static final int NUM_PHOTOS = 4;
     
     private UUID mId;
@@ -24,6 +23,8 @@ public class Crime {
     private Date mDate;
     private boolean mSolved;
     private Photo[] mPhotos;
+
+
     private int photoIndex = 0;
     
     public Crime() {
@@ -78,6 +79,11 @@ public class Crime {
         return mTitle;
     }
 
+    public void removeImages() {
+        for (int i=0; i < mPhotos.length; i++)
+            mPhotos[i] = null;
+        photoIndex = 0;
+    }
     public void setTitle(String title) {
         mTitle = title;
     }
